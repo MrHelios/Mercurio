@@ -1,0 +1,29 @@
+HACER
+1. Esqueleto (enemigo 01)
+a. gimp esqueleto (COMPLETADO)
+b. agregar esqueleto en test (script de vida) (COMPLETADO)
+
+2. Hero
+a. disparo desaparecen al impactar (script) (COMPLETADO)
+b. animacion del disparo basico al impactar (COMPLETADO)
+c. clase cooldown (COMPLETADO)
+d. agregar vida util a los disparos (script destruir) (COMPLETADO)
+
+2. Esqueleto (enemigo 01)
+a. implementar movimiento simple (script) (COMPLETADO)
+b. animacion del esqueleto al moverse (COMPLETADO)
+
+4. Mapa
+a. hacer un boceto del primer escenario (COMPLETADO)
+b. crear el escenario en unity. (COMPLETADO)
+
+5. Proyecto NN
+a. Ver todo lo util que hay en el proyecto anterior
+b. crear proyecto nuevo llamado Mercurio (COMPLETADO)
+c. subir el git a MrHelios
+
+POSPONER
+2.
+d. agregar script de vida al hero
+e. rehacer el hero en gimp
+f. importarlo a inkscape y estudiar diferentes posturas
