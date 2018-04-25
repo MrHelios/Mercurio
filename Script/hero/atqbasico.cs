@@ -7,19 +7,20 @@ public class atqbasico : MonoBehaviour
     public GameObject disp;
     private int velocidad;
     private bool disparar;
-    private float ultimaVez, cooldown;
+    private cooldown cd;
 
     void Start()
     {
         disparar = false;
-        ultimaVez = -99f;
-        cooldown = 0.2f;
         velocidad = 20;
+        cd = new cooldown();
+        cd.setUltimaVez(-99f);
+        cd.setCooldown(0.2f);
     }
 
     public void activar()
     {
-        ultimaVez = Time.time;
+        cd.setUltimaVez(Time.time);
         disparar = true;
     }
 
@@ -41,7 +42,7 @@ public class atqbasico : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (disparar && Time.time > ultimaVez + cooldown)
+        if (disparar && cd.tiempoCompletado())
             crearAtq();
     }
 

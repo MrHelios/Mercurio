@@ -7,17 +7,18 @@ public class mov : MonoBehaviour
     private float vel;
     private Animator anim;
     private bool agacharse;
-    private float ultimaVez, cooldown;
     private string mirada;
+    private cooldown cd;
 	
 	void Start ()
     {
         anim = GetComponent<Animator>();
         agacharse = false;
         vel = 4f;
-        ultimaVez = -99f;
-        cooldown = 0.35f;
         mirada = "derecha";
+        cd = new cooldown();
+        cd.setUltimaVez(-99f);
+        cd.setCooldown(0.35f);
 	}
 
     public string getMirada()
@@ -31,27 +32,27 @@ public class mov : MonoBehaviour
         float velY = Input.GetAxis("Vertical");
         Vector2 v = GetComponent<Rigidbody2D>().velocity;
 
-        if (Input.GetAxis("Fire1") > 0 && Time.time > ultimaVez + cooldown)
+        if (Input.GetAxis("Fire1") > 0 && cd.tiempoCompletado())
         {
             anim.SetBool("movimiento", false);
             anim.SetBool("agacharse", false);
             GetComponent<Rigidbody2D>().velocity = new Vector2(0, v.y);
             GetComponent<atqbasico>().activar();
             anim.SetTrigger("atq_basico");
-            ultimaVez = Time.time + cooldown;
+            cd.setUltimaVez(Time.time);
         }
-        else if (Input.GetKey(KeyCode.Alpha1) && Time.time > ultimaVez + cooldown)
+        else if (Input.GetKey(KeyCode.Alpha1) && cd.tiempoCompletado())
         {
             anim.SetBool("movimiento", false);
             anim.SetBool("agacharse", false);
             GetComponent<Rigidbody2D>().velocity = new Vector2(0, v.y);
             GetComponent<atqbomba>().activar();
             anim.SetTrigger("atq_bomba");
-            ultimaVez = Time.time + cooldown;
+            cd.setUltimaVez(Time.time);
         }
         else
         {
-            if (Mathf.Abs(velX) > 0.1f && !agacharse && Time.time > ultimaVez + cooldown)
+            if (Mathf.Abs(velX) > 0.1f && !agacharse && cd.tiempoCompletado())
             {
                 GetComponent<Rigidbody2D>().velocity = new Vector2(velX * vel, v.y);
                 if (velX > 0)
@@ -71,7 +72,7 @@ public class mov : MonoBehaviour
                 GetComponent<Rigidbody2D>().velocity = new Vector2(0, v.y);
                 anim.SetBool("movimiento", false);
 
-                if (velY < 0f && Time.time > ultimaVez + cooldown)
+                if (velY < 0f && cd.tiempoCompletado())
                 {
                     anim.SetBool("agacharse", true);
                     agacharse = true;

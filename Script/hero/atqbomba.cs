@@ -5,23 +5,23 @@ using UnityEngine;
 public class atqbomba : MonoBehaviour
 {
     public GameObject disp;
-
     private int velocidad;
     private bool disparar;
-    private float ultimaVez, cooldown;
+    private cooldown cd;    
 
     void Start()
     {
         disparar = false;
-        ultimaVez = -99f;
-        cooldown = 0.3f;
         velocidad = 200;
+        cd = new cooldown();
+        cd.setUltimaVez(-99f);
+        cd.setCooldown(0.3f);        
     }
 
     public void activar()
     {
-        ultimaVez = Time.time;
-        disparar = true;
+        cd.setUltimaVez(Time.time);
+        disparar = true;        
     }
 
     private void crearAtq()
@@ -46,7 +46,7 @@ public class atqbomba : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (disparar && Time.time > ultimaVez + cooldown)
+        if (disparar && cd.tiempoCompletado())
             crearAtq();
     }
 
