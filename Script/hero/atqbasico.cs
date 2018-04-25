@@ -27,9 +27,10 @@ public class atqbasico : MonoBehaviour
     private void crearAtq()
     {
         GameObject nuevo = Instantiate(disp);        
-        Vector3 v = disp.transform.parent.transform.position;
-        nuevo.transform.position = new Vector3(v.x, v.y-1, v.z);
+        nuevo.transform.position = disp.transform.position;
         nuevo.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+        nuevo.AddComponent<Rigidbody2D>();
+        nuevo.GetComponent<Rigidbody2D>().gravityScale = 0;
         nuevo.GetComponent<Collider2D>().enabled = true;
         string m = GetComponent<mov>().getMirada();
         if(m.Equals("derecha"))
