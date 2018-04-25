@@ -40,7 +40,7 @@ public class atqbomba : MonoBehaviour
         {
             nuevo.GetComponent<Rigidbody2D>().AddForce(new Vector2(-velocidad, velocidad));            
         }        
-        nuevo.GetComponent<SpriteRenderer>().enabled = true;
+        nuevo.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
         disparar = false;
     }
 
