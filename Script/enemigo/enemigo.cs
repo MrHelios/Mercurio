@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class enemigo : MonoBehaviour
 {
-    private int vida;
+    private int vida, vida_max;
 
 	void Start ()
     {
         gameObject.tag = "Enemy";
+        vida_max = 1; 
         vida = 1;
 	}
 
@@ -19,6 +20,11 @@ public class enemigo : MonoBehaviour
         {            
             gameObject.SetActive(false);
         }
+    }
+
+    public void revivir()
+    {
+        vida = vida_max;
     }
 	
 }
