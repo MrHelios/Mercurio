@@ -13,6 +13,8 @@ public class municionContraEnemigo : MonoBehaviour
             gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             gameObject.GetComponent<Animator>().SetTrigger("exp");
             gameObject.GetComponent<destruir>().enabled = true;
+
+            collision.gameObject.GetComponent<enemigo>().perderVida();
         }        
     }
 
