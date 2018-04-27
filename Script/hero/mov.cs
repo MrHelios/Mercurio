@@ -8,7 +8,7 @@ public class mov : MonoBehaviour
     private Animator anim;
     private bool agacharse;
     private string mirada;
-    private cooldown cd;
+    private cooldown cd, sin_apretar_tecla_mov;
 	
 	void Start ()
     {
@@ -16,10 +16,15 @@ public class mov : MonoBehaviour
         agacharse = false;
         vel = 4f;
         mirada = "derecha";
+
         cd = new cooldown();
         cd.setUltimaVez(-99f);
-        cd.setCooldown(0.35f);
-	}
+        cd.setCooldown(0.2f);
+
+        sin_apretar_tecla_mov = new cooldown();
+        sin_apretar_tecla_mov.setUltimaVez(0);
+        sin_apretar_tecla_mov.setCooldown(0.05f);
+    }
 
     public string getMirada()
     {
@@ -54,23 +59,27 @@ public class mov : MonoBehaviour
         {
             if (Mathf.Abs(velX) > 0.1f && !agacharse && cd.tiempoCompletado())
             {
+                sin_apretar_tecla_mov.setUltimaVez(Time.time);
                 GetComponent<Rigidbody2D>().velocity = new Vector2(velX * vel, v.y);
                 if (velX > 0)
-                {
+                {                    
+                    mirada = "derecha";                    
                     GetComponent<Transform>().localScale = new Vector3(1, 1, 1);
-                    mirada = "derecha";
                 }
                 else
-                {
+                {                    
                     GetComponent<Transform>().localScale = new Vector3(-1, 1, 1);
-                    mirada = "izquierda";
+                    mirada = "izquierda";                    
                 }
                 anim.SetBool("movimiento", true);
             }
             else
             {
-                GetComponent<Rigidbody2D>().velocity = new Vector2(0, v.y);
-                anim.SetBool("movimiento", false);
+                if(sin_apretar_tecla_mov.tiempoCompletado())
+                {
+                    GetComponent<Rigidbody2D>().velocity = new Vector2(0, v.y);
+                    anim.SetBool("movimiento", false);
+                }
 
                 if (velY < 0f && cd.tiempoCompletado())
                 {
