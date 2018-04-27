@@ -14,7 +14,7 @@ public class municionContraEnemigo : MonoBehaviour
             gameObject.GetComponent<Animator>().SetTrigger("exp");
             gameObject.GetComponent<destruir>().enabled = true;
 
-            collision.gameObject.GetComponent<enemigo>().perderVida();
+            collision.gameObject.GetComponent<enemigo>().pierdeVida();
         }        
     }
 

@@ -1,30 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class enemigo : MonoBehaviour
 {
-    private int vida, vida_max;
+    private vida vidaEnemigo;
 
 	void Start ()
     {
         gameObject.tag = "Enemy";
-        vida_max = 1; 
-        vida = 1;
+        vidaEnemigo = new vida(1);
 	}
-
-    public void perderVida()
+	
+    public vida getVida()
     {
-        vida--;
-        if(vida == 0)
-        {            
+        return vidaEnemigo;
+    }
+
+    public void pierdeVida()
+    {
+        vidaEnemigo.pierdeVida();
+        if(vidaEnemigo.estaMuerto())
+        {
             gameObject.SetActive(false);
         }
     }
 
     public void revivir()
     {
-        vida = vida_max;
+        vidaEnemigo.restaurar_maxima_vida();
     }
-	
+
+    public void muerte()
+    {
+        vidaEnemigo.muerte();
+    }
+
 }
