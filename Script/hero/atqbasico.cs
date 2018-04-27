@@ -2,13 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class atqbasico : MonoBehaviour
+public class atqbasico : atqDistancia
 {
-    public GameObject disp;
-    private int velocidad;
-    private bool disparar;
-    private cooldown cd;
-
     void Start()
     {
         disparar = false;
@@ -16,15 +11,9 @@ public class atqbasico : MonoBehaviour
         cd = new cooldown();
         cd.setUltimaVez(-99f);
         cd.setCooldown(0.2f);
-    }
+    }   
 
-    public void activar()
-    {
-        cd.setUltimaVez(Time.time);
-        disparar = true;
-    }
-
-    private void crearAtq()
+    protected override void efecto()
     {
         GameObject nuevo = Instantiate(disp);        
         nuevo.transform.position = disp.transform.position;
@@ -43,8 +32,7 @@ public class atqbasico : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (disparar && cd.tiempoCompletado())
-            crearAtq();
+        puedeActuar();
     }
 
 }
