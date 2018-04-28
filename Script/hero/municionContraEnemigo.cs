@@ -22,6 +22,7 @@ public class municionContraEnemigo : MonoBehaviour
     {
         gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().enabled = false;
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        gameObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
         gameObject.GetComponent<Animator>().SetTrigger("exp");
         gameObject.GetComponent<destruir>().activar();
     }

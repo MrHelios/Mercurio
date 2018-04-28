@@ -12,7 +12,7 @@ public class destruir : MonoBehaviour
         ahora = false;
 
         cd = new cooldown();
-        cd.setCooldown(1f);
+        cd.setCooldown(2f);
         cd.setUltimaVez(Time.time);
 
         muerte_sin_colision = new cooldown();
