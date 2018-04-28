@@ -1,19 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class atqbasico : atqDistancia
 {
     void Start()
     {
+        anim = GetComponent<Animator>();
+        nombre_anim = "atq_basico";
+
         disparar = false;
         velocidad = 20;
+
         cd = new cooldown();
         cd.setUltimaVez(-99f);
         cd.setCooldown(0.2f);
+
+        hab_ejec = new cooldown();
+        hab_ejec.setUltimaVez(-99f);
+        hab_ejec.setCooldown(1f);
     }   
 
-    protected override void efecto()
+    public override void efecto()
     {
         GameObject nuevo = Instantiate(disp);        
         nuevo.transform.position = disp.transform.position;
@@ -29,12 +35,15 @@ public class atqbasico : atqDistancia
         else
             nuevo.GetComponent<Rigidbody2D>().velocity = new Vector2(-velocidad, 0);
 
-        disparar = false;
+        desactivar();
     }
 
     private void FixedUpdate()
     {
-        puedeActuar();
+        if (puedeActuar())
+        {
+            efecto();
+        }
     }
 
 }

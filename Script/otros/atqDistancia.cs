@@ -1,26 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class atqDistancia : MonoBehaviour
 {
     public GameObject disp;
+    protected Animator anim;
+    protected string nombre_anim;
     protected int velocidad;
     protected bool disparar;
-    protected cooldown cd;    
+    // cd: es un cooldown para ejecutar el efecto despues de la animacion.
+    // hab_ejec: es un cooldown para ejecutar el poder cada cierto tiempo.
+    protected cooldown cd, hab_ejec;
 
     public void activar()
     {
+        anim.SetTrigger(nombre_anim);
         cd.setUltimaVez(Time.time);
         disparar = true;
     }
 
-    protected void puedeActuar()
+    public void desactivar()
     {
-        if (disparar && cd.tiempoCompletado())
-            efecto();
+        disparar = false;
     }
 
-    protected abstract void efecto();
+    public cooldown getCooldown()
+    {
+        return hab_ejec;
+    }
+
+    public bool puedeActuar()
+    {
+        return disparar && cd.tiempoCompletado();
+    }
+
+    public abstract void efecto();
 
 }

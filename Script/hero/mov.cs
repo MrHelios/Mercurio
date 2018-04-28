@@ -34,17 +34,19 @@ public class mov : MonoBehaviour
             anim.SetBool(GetComponent<agacharse>().getNombreAnimacion(), false);
             GetComponent<Rigidbody2D>().velocity = new Vector2(0, v.y);
 
-            if (Input.GetAxis("Fire1") > 0 && cd.tiempoCompletado())
+            if (Input.GetAxis("Fire1") > 0 && cd.tiempoCompletado() && GetComponent<atqbasico>().getCooldown().tiempoCompletado())
             {
                 GetComponent<atqbasico>().activar();
-                anim.SetTrigger("atq_basico");
+                GetComponent<atqbasico>().getCooldown().setUltimaVez(Time.time);
+                
                 cd.setCooldown(0.2f);
                 cd.setUltimaVez(Time.time);
             }
-            else if (Input.GetKey(KeyCode.Alpha1) && cd.tiempoCompletado())
+            else if (Input.GetKey(KeyCode.Alpha1) && cd.tiempoCompletado() && GetComponent<atqbomba>().getCooldown().tiempoCompletado())
             {                
                 GetComponent<atqbomba>().activar();
-                anim.SetTrigger("atq_bomba");
+                GetComponent<atqbomba>().getCooldown().setUltimaVez(Time.time);
+
                 cd.setCooldown(0.4f);
                 cd.setUltimaVez(Time.time);
             }
