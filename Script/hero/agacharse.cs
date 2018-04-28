@@ -2,15 +2,12 @@
 
 public class agacharse : habilidad
 {    
-    private bool estaAgachado;
     private float velY;    
 
 	void Start ()
     {
         anim = GetComponent<Animator>();
         estado_anim = "agacharse";
-
-        estaAgachado = false;
 
         cd = new cooldown();
         cd.setCooldown(0.2f);
@@ -19,14 +16,12 @@ public class agacharse : habilidad
 
     public override void activar()
     {
-        anim.SetBool(estado_anim, true);
-        estaAgachado = true;
+        anim.SetBool(estado_anim, true);        
     }
 
     public override void desactivar()
     {
-        anim.SetBool(estado_anim, false);
-        estaAgachado = false;
+        anim.SetBool(estado_anim, false);        
     }
 
     protected override void efecto()

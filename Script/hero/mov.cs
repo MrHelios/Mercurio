@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public class mov : MonoBehaviour
-{    
+{
     private Animator anim;
     private string mirada;
     private cooldown cd;
@@ -24,8 +24,7 @@ public class mov : MonoBehaviour
     }
 	
 	void FixedUpdate ()
-    {        
-        float velY = Input.GetAxis("Vertical");
+    {
         Vector2 v = GetComponent<Rigidbody2D>().velocity;
 
         if(Input.GetAxis("Fire1") > 0 || Input.GetKey(KeyCode.Alpha1))
