@@ -57,7 +57,7 @@ public class mov : MonoBehaviour
         }
         else
         {
-            if (Mathf.Abs(velX) > 0.1f && !agacharse && cd.tiempoCompletado())
+            if (Mathf.Abs(velX) > 0.1f && !anim.GetBool("agacharse") && cd.tiempoCompletado())
             {
                 sin_apretar_tecla_mov.setUltimaVez(Time.time);
                 GetComponent<Rigidbody2D>().velocity = new Vector2(velX * vel, v.y);
@@ -80,18 +80,7 @@ public class mov : MonoBehaviour
                     GetComponent<Rigidbody2D>().velocity = new Vector2(0, v.y);
                     anim.SetBool("movimiento", false);
                 }
-
-                if (velY < 0f && cd.tiempoCompletado())
-                {
-                    anim.SetBool("agacharse", true);
-                    agacharse = true;
-                }
-                else
-                {
-                    anim.SetBool("agacharse", false);
-                    agacharse = false;
-                }
             }
-        }        
+        }
 	}
 }
