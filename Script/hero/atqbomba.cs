@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class atqbomba : atqDistancia
-{
+{    
+
     void Start()
     {
         disparar = false;
-        velocidad = 200;
+        velocidad = 300;
+
         cd = new cooldown();
         cd.setUltimaVez(-99f);
         cd.setCooldown(0.3f);        
@@ -16,10 +18,11 @@ public class atqbomba : atqDistancia
     protected override void efecto()
     {
         GameObject nuevo = Instantiate(disp);
-
         Vector3 v = disp.transform.parent.transform.position;
         string m = GetComponent<mov>().getMirada();        
         nuevo.transform.position = disp.transform.position;
+        nuevo.GetComponent<Collider2D>().enabled = true;
+        nuevo.GetComponent<destruir>().enabled = true;
 
         if (m.Equals("derecha"))
         {
@@ -30,12 +33,12 @@ public class atqbomba : atqDistancia
             nuevo.GetComponent<Rigidbody2D>().AddForce(new Vector2(-velocidad, velocidad));            
         }        
         nuevo.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
-        disparar = false;
+        disparar = false;        
     }
 
     private void FixedUpdate()
-    {
-        puedeActuar();
+    {        
+        puedeActuar();        
     }
 
 }

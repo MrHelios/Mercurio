@@ -19,7 +19,7 @@ public class mov : MonoBehaviour
 
         cd = new cooldown();
         cd.setUltimaVez(-99f);
-        cd.setCooldown(0.2f);
+        cd.setCooldown(0.3f);
 
         sin_apretar_tecla_mov = new cooldown();
         sin_apretar_tecla_mov.setUltimaVez(0);
@@ -44,6 +44,7 @@ public class mov : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = new Vector2(0, v.y);
             GetComponent<atqbasico>().activar();
             anim.SetTrigger("atq_basico");
+            cd.setCooldown(0.2f);
             cd.setUltimaVez(Time.time);
         }
         else if (Input.GetKey(KeyCode.Alpha1) && cd.tiempoCompletado())
@@ -53,12 +54,14 @@ public class mov : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = new Vector2(0, v.y);
             GetComponent<atqbomba>().activar();
             anim.SetTrigger("atq_bomba");
+            cd.setCooldown(0.4f);
             cd.setUltimaVez(Time.time);
         }
         else
         {
             if (Mathf.Abs(velX) > 0.1f && !anim.GetBool("agacharse") && cd.tiempoCompletado())
             {
+                cd.setCooldown(0.2f);
                 sin_apretar_tecla_mov.setUltimaVez(Time.time);
                 GetComponent<Rigidbody2D>().velocity = new Vector2(velX * vel, v.y);
                 if (velX > 0)

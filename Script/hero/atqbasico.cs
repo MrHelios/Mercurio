@@ -21,6 +21,8 @@ public class atqbasico : atqDistancia
         nuevo.AddComponent<Rigidbody2D>();
         nuevo.GetComponent<Rigidbody2D>().gravityScale = 0;
         nuevo.GetComponent<Collider2D>().enabled = true;
+        nuevo.GetComponent<destruir>().enabled = true;
+
         string m = GetComponent<mov>().getMirada();
         if(m.Equals("derecha"))
             nuevo.GetComponent<Rigidbody2D>().velocity = new Vector2(velocidad, 0);
