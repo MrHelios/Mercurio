@@ -1,19 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class agacharse : MonoBehaviour
-{
-    private Animator anim;
-    private cooldown cd;
+public class agacharse : habilidad
+{    
     private bool estaAgachado;
-    private float velY;
-    private string animacion;
+    private float velY;    
 
 	void Start ()
     {
         anim = GetComponent<Animator>();
-        animacion = "agacharse";
+        estado_anim = "agacharse";
 
         estaAgachado = false;
 
@@ -21,20 +16,31 @@ public class agacharse : MonoBehaviour
         cd.setCooldown(0.2f);
         cd.setUltimaVez(-99f);
 	}
-	
-	void FixedUpdate ()
+
+    public override void activar()
+    {
+        anim.SetBool(estado_anim, true);
+        estaAgachado = true;
+    }
+
+    public override void desactivar()
+    {
+        anim.SetBool(estado_anim, false);
+        estaAgachado = false;
+    }
+
+    protected override void efecto()
     {
         float velY = Input.GetAxis("Vertical");
 
         if (velY < 0f && cd.tiempoCompletado())
-        {
-            anim.SetBool(animacion, true);
-            estaAgachado = true;
-        }
+            activar();
         else
-        {
-            anim.SetBool(animacion, false);
-            estaAgachado = false;
-        }
+            desactivar();
+    }
+
+    void FixedUpdate ()
+    {
+        efecto();
     }
 }

@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class movimiento : MonoBehaviour
+public class movimiento : habilidad
 {
     private float vel;
-    private Animator anim;    
     private string mirada;
-    private cooldown cd, sin_apretar_tecla_mov;
+    private cooldown sin_apretar_tecla_mov;
 
     void Awake()
     {
@@ -18,34 +15,30 @@ public class movimiento : MonoBehaviour
 
     void Start ()
     {
-        anim = GetComponent<Animator>();        
-        vel = 4f;        
+        anim = GetComponent<Animator>();
+        estado_anim = "movimiento";
+        vel = 4f;
 
         sin_apretar_tecla_mov = new cooldown();
         sin_apretar_tecla_mov.setUltimaVez(0);
         sin_apretar_tecla_mov.setCooldown(0.05f);
     }
 
-    public cooldown getCooldown()
+    public override void activar()
     {
-        return cd;
+        anim.SetBool(estado_anim, true);
     }
 
-    public void activar()
+    public override void desactivar()
     {
-        anim.SetBool("movimiento", true);
+        anim.SetBool(estado_anim, false);
     }
 
-    public void desactivar()
+    protected override void efecto()
     {
-        anim.SetBool("movimiento", false);
-    }
-	
-	void FixedUpdate ()
-    {
-        float velX = Input.GetAxis("Horizontal");        
+        float velX = Input.GetAxis("Horizontal");
         Vector2 v = GetComponent<Rigidbody2D>().velocity;
-        
+
         if (Mathf.Abs(velX) > 0.1f && !anim.GetBool("agacharse") && cd.tiempoCompletado())
         {
             cd.setCooldown(0.2f);
@@ -63,11 +56,16 @@ public class movimiento : MonoBehaviour
                 GetComponent<Transform>().localScale = new Vector3(-1, 1, 1);
             }
             activar();
-        }        
-        else if(sin_apretar_tecla_mov.tiempoCompletado())
-        {            
+        }
+        else if (sin_apretar_tecla_mov.tiempoCompletado())
+        {
             GetComponent<Rigidbody2D>().velocity = new Vector2(0, v.y);
             desactivar();
-        }            
+        }
+    }
+
+    void FixedUpdate ()
+    {
+        efecto();
     }
 }

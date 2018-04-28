@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class mov : MonoBehaviour
 {    
@@ -30,25 +28,27 @@ public class mov : MonoBehaviour
         float velY = Input.GetAxis("Vertical");
         Vector2 v = GetComponent<Rigidbody2D>().velocity;
 
-        if (Input.GetAxis("Fire1") > 0 && cd.tiempoCompletado())
-        {
-            anim.SetBool("movimiento", false);
-            anim.SetBool("agacharse", false);
+        if(Input.GetAxis("Fire1") > 0 || Input.GetKey(KeyCode.Alpha1))
+        {            
+            anim.SetBool(GetComponent<movimiento>().getNombreAnimacion(), false);
+            anim.SetBool(GetComponent<agacharse>().getNombreAnimacion(), false);
             GetComponent<Rigidbody2D>().velocity = new Vector2(0, v.y);
-            GetComponent<atqbasico>().activar();
-            anim.SetTrigger("atq_basico");
-            cd.setCooldown(0.2f);
-            cd.setUltimaVez(Time.time);
+
+            if (Input.GetAxis("Fire1") > 0 && cd.tiempoCompletado())
+            {
+                GetComponent<atqbasico>().activar();
+                anim.SetTrigger("atq_basico");
+                cd.setCooldown(0.2f);
+                cd.setUltimaVez(Time.time);
+            }
+            else if (Input.GetKey(KeyCode.Alpha1) && cd.tiempoCompletado())
+            {                
+                GetComponent<atqbomba>().activar();
+                anim.SetTrigger("atq_bomba");
+                cd.setCooldown(0.4f);
+                cd.setUltimaVez(Time.time);
+            }
         }
-        else if (Input.GetKey(KeyCode.Alpha1) && cd.tiempoCompletado())
-        {
-            anim.SetBool("movimiento", false);
-            anim.SetBool("agacharse", false);
-            GetComponent<Rigidbody2D>().velocity = new Vector2(0, v.y);
-            GetComponent<atqbomba>().activar();
-            anim.SetTrigger("atq_bomba");
-            cd.setCooldown(0.4f);
-            cd.setUltimaVez(Time.time);
-        }        
+                
 	}
 }

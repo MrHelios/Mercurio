@@ -1,32 +1,39 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class salto : MonoBehaviour
+public class salto : habilidad
 {
-    private bool puedeSaltar;
-    private Animator anim;
+    private bool puedeSaltar;    
 	
 	void Start ()
     {
         anim = GetComponent<Animator>();
+        estado_anim = "en_aire";
         activar();
 	}
 
-    public void activar()
+    public override void activar()
     {
         puedeSaltar = true;
-        anim.SetBool("en_aire", false);
-    }	
-	
-	void FixedUpdate ()
+        anim.SetBool(estado_anim, false);
+    }
+
+    public override void desactivar()
     {
-        if(Input.GetAxis("Submit") > 0 && puedeSaltar)
+        puedeSaltar = false;
+        anim.SetBool(estado_anim, true);
+    }
+
+    protected override void efecto()
+    {
+        if (Input.GetAxis("Submit") > 0 && puedeSaltar)
         {
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(0,250));
-            puedeSaltar = false;
-            anim.SetBool("en_aire", true);
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 250));
+            desactivar();            
         }
-		
+    }
+
+    void FixedUpdate ()
+    {
+        efecto();	
 	}
 }
