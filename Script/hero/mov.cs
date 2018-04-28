@@ -3,27 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class mov : MonoBehaviour
-{
-    private float vel;
+{    
     private Animator anim;
-    private bool agacharse;
     private string mirada;
-    private cooldown cd, sin_apretar_tecla_mov;
+    private cooldown cd;
 	
 	void Start ()
     {
         anim = GetComponent<Animator>();
-        agacharse = false;
-        vel = 4f;
+        cd = GetComponent<movimiento>().getCooldown();
         mirada = "derecha";
+    }
 
-        cd = new cooldown();
-        cd.setUltimaVez(-99f);
-        cd.setCooldown(0.3f);
-
-        sin_apretar_tecla_mov = new cooldown();
-        sin_apretar_tecla_mov.setUltimaVez(0);
-        sin_apretar_tecla_mov.setCooldown(0.05f);
+    public void setMirada(string m)
+    {
+        mirada = m;
     }
 
     public string getMirada()
@@ -32,8 +26,7 @@ public class mov : MonoBehaviour
     }
 	
 	void FixedUpdate ()
-    {
-        float velX = Input.GetAxis("Horizontal");
+    {        
         float velY = Input.GetAxis("Vertical");
         Vector2 v = GetComponent<Rigidbody2D>().velocity;
 
@@ -56,34 +49,6 @@ public class mov : MonoBehaviour
             anim.SetTrigger("atq_bomba");
             cd.setCooldown(0.4f);
             cd.setUltimaVez(Time.time);
-        }
-        else
-        {
-            if (Mathf.Abs(velX) > 0.1f && !anim.GetBool("agacharse") && cd.tiempoCompletado())
-            {
-                cd.setCooldown(0.2f);
-                sin_apretar_tecla_mov.setUltimaVez(Time.time);
-                GetComponent<Rigidbody2D>().velocity = new Vector2(velX * vel, v.y);
-                if (velX > 0)
-                {                    
-                    mirada = "derecha";                    
-                    GetComponent<Transform>().localScale = new Vector3(1, 1, 1);
-                }
-                else
-                {                    
-                    GetComponent<Transform>().localScale = new Vector3(-1, 1, 1);
-                    mirada = "izquierda";                    
-                }
-                anim.SetBool("movimiento", true);
-            }
-            else
-            {
-                if(sin_apretar_tecla_mov.tiempoCompletado())
-                {
-                    GetComponent<Rigidbody2D>().velocity = new Vector2(0, v.y);
-                    anim.SetBool("movimiento", false);
-                }
-            }
-        }
+        }        
 	}
 }
