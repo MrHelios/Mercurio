@@ -22,6 +22,13 @@ public class mov : MonoBehaviour
     {
         return mirada;
     }
+
+    public void animacionMuerte()
+    {
+        anim.SetBool(GetComponent<movimiento>().getNombreAnimacion(), false);
+        anim.SetBool(GetComponent<agacharse>().getNombreAnimacion(), false);
+        anim.SetTrigger("muerte");
+    }
 	
 	void FixedUpdate ()
     {

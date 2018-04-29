@@ -2,17 +2,42 @@
 
 public class hero : MonoBehaviour
 {
+    private int vida_max;
+
     private vida vidaHero;
     private cooldown invulnerabilidad_por_golpe;
+    private controladorVidaUI ui_vida;
 
     void Start()
     {
+        vida_max = 1;
         gameObject.tag = "Player";
-        vidaHero = new vida(4);
+        vidaHero = new vida(vida_max);
+
+        ui_vida = GameObject.Find("Canvas").gameObject.GetComponent<controladorVidaUI>();
+        armarVidaUI();
 
         invulnerabilidad_por_golpe = new cooldown();
         invulnerabilidad_por_golpe.setCooldown(2f);
         invulnerabilidad_por_golpe.setUltimaVez(-99f);
+    }
+
+    private void armarVidaUI()
+    {
+        ui_vida.armar(vida_max);
+    }
+
+    private void efectosMuerte()
+    {
+        habilidad[] h = GetComponents<habilidad>();
+        for (int i = 0; h.Length > i; i++)
+            h[i].enabled = false;
+
+        atqDistancia[] a = GetComponents<atqDistancia>();
+        for (int i = 0; a.Length > i; i++)
+            a[i].enabled = false;
+
+        GetComponent<mov>().animacionMuerte();
     }
 
     public vida getVida()
@@ -27,10 +52,11 @@ public class hero : MonoBehaviour
             vidaHero.pierdeVida();
             if (vidaHero.estaMuerto())
             {
-                Debug.Log("El heroe ha muerto.");
+                muerte();
             }
-            invulnerabilidad_por_golpe.setUltimaVez(Time.time);            
-        }        
+            invulnerabilidad_por_golpe.setUltimaVez(Time.time);
+            ui_vida.perderVida(vidaHero.getVidaAct());
+        }
     }
 
     public void restaurar_vida_max()
@@ -41,6 +67,7 @@ public class hero : MonoBehaviour
     public void muerte()
     {
         vidaHero.muerte();
+        efectosMuerte();
     }
 
 }
