@@ -6,7 +6,7 @@ public class controladorVidaUI : MonoBehaviour
     private string direccion;
     private GameObject panelvida;
 	
-	void Start ()
+	void Awake ()
     {
         direccion = "Canvas/Vida/Panel";
         panelvida = GameObject.Find(direccion);
