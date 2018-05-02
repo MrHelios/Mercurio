@@ -21,7 +21,7 @@ public class movimiento : habilidad
 
         sin_apretar_tecla_mov = new cooldown();
         sin_apretar_tecla_mov.setUltimaVez(0);
-        sin_apretar_tecla_mov.setCooldown(0.05f);
+        sin_apretar_tecla_mov.setCooldown(0.1f);
     }
 
     public override void activar()
@@ -56,12 +56,13 @@ public class movimiento : habilidad
                 GetComponent<Transform>().localScale = new Vector3(-1, 1, 1);
             }
             activar();
-        }
+        }        
         else if (sin_apretar_tecla_mov.tiempoCompletado())
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(0, v.y);
             desactivar();
         }
+        
     }
 
     void FixedUpdate ()
