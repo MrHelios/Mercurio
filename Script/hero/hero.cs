@@ -10,7 +10,7 @@ public class hero : MonoBehaviour
 
     void Start()
     {
-        vida_max = 1;
+        vida_max = 4;
         gameObject.tag = "Player";
         vidaHero = new vida(vida_max);       
 
