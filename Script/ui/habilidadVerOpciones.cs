@@ -26,7 +26,7 @@ public class habilidadVerOpciones : MonoBehaviour
 	
 	void FixedUpdate ()
     {
-        if (cd.tiempoCompletado() && Input.GetKey(KeyCode.Escape))
+        if (cd.tiempoCompletado() && Input.GetAxis("Cancel") > 0)
             cambiarEstado();
 	}
 }

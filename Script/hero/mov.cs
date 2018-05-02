@@ -34,7 +34,7 @@ public class mov : MonoBehaviour
     {
         Vector2 v = GetComponent<Rigidbody2D>().velocity;
 
-        if(Input.GetAxis("Fire1") > 0 || Input.GetKey(KeyCode.Alpha1))
+        if(Input.GetAxis("Fire1") > 0 || Input.GetAxis("Fire2") > 0)
         {            
             anim.SetBool(GetComponent<movimiento>().getNombreAnimacion(), false);
             anim.SetBool(GetComponent<agacharse>().getNombreAnimacion(), false);
@@ -48,7 +48,7 @@ public class mov : MonoBehaviour
                 cd.setCooldown(0.2f);
                 cd.setUltimaVez(Time.time);
             }
-            else if (Input.GetKey(KeyCode.Alpha1) && cd.tiempoCompletado() && GetComponent<atqbomba>().getCooldown().tiempoCompletado())
+            else if (Input.GetAxis("Fire2") > 0 && cd.tiempoCompletado() && GetComponent<atqbomba>().getCooldown().tiempoCompletado())
             {                
                 GetComponent<atqbomba>().activar();
                 GetComponent<atqbomba>().getCooldown().setUltimaVez(Time.time);

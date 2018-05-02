@@ -25,7 +25,7 @@ public class salto : habilidad
 
     protected override void efecto()
     {
-        if (Input.GetAxis("Submit") > 0 && puedeSaltar)
+        if (Input.GetAxis("Fire3") > 0 && puedeSaltar)
         {
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 250));
             desactivar();            
