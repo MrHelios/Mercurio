@@ -2,11 +2,13 @@
 
 public class agacharse : habilidad
 {    
-    private float velY;    
+    private float velY;
+    private bool estaAgachado;
 
 	void Start ()
     {
         anim = GetComponent<Animator>();
+        estaAgachado = false;
         estado_anim = "agacharse";
 
         cd = new cooldown();
@@ -14,13 +16,20 @@ public class agacharse : habilidad
         cd.setUltimaVez(-99f);
 	}
 
+    public bool getEstaAgachado()
+    {
+        return estaAgachado;
+    }
+
     public override void activar()
     {
+        estaAgachado = true;
         anim.SetBool(estado_anim, true);        
     }
 
     public override void desactivar()
     {
+        estaAgachado = false;
         anim.SetBool(estado_anim, false);        
     }
 
@@ -28,7 +37,7 @@ public class agacharse : habilidad
     {
         float velY = Input.GetAxis("Vertical");
 
-        if (velY < 0f && cd.tiempoCompletado())
+        if (velY < 0f && cd.tiempoCompletado() && !GetComponent<salto>().getEstaSaltando())
             activar();
         else
             desactivar();
