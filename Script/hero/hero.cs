@@ -8,6 +8,11 @@ public class hero : MonoBehaviour
     private cooldown invulnerabilidad_por_golpe;
     private controladorVidaUI ui_vida;
 
+    private void Awake()
+    {
+        transform.position = GameObject.Find("escenario/respawn").transform.position;
+    }
+
     void Start()
     {
         vida_max = 4;
