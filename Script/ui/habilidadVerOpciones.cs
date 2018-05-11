@@ -17,6 +17,11 @@ public class habilidadVerOpciones : MonoBehaviour
         cd.setCooldown(0.25f);        
 	}
 
+    public bool getEstado()
+    {
+        return estado;
+    }
+
     public void cambiarEstado()
     {
         estado = !estado;

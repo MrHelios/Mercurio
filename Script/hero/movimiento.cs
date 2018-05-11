@@ -5,6 +5,7 @@ public class movimiento : habilidad
     private float vel;
     private string mirada;
     private cooldown sin_apretar_tecla_mov;
+    private habilidadVerOpciones ui;
 
     void Awake()
     {
@@ -18,6 +19,8 @@ public class movimiento : habilidad
         anim = GetComponent<Animator>();
         estado_anim = "movimiento";
         vel = 4f;
+
+        ui = GameObject.Find("Canvas").gameObject.GetComponent<habilidadVerOpciones>();
 
         sin_apretar_tecla_mov = new cooldown();
         sin_apretar_tecla_mov.setUltimaVez(0);
@@ -39,7 +42,7 @@ public class movimiento : habilidad
         float velX = Input.GetAxis("Horizontal");
         Vector2 v = GetComponent<Rigidbody2D>().velocity;
 
-        if (Mathf.Abs(velX) > 0.1f && !anim.GetBool("agacharse") && cd.tiempoCompletado())
+        if (Mathf.Abs(velX) > 0.1f && !anim.GetBool("agacharse") && cd.tiempoCompletado() && !ui.getEstado())
         {
             cd.setCooldown(0.2f);
             sin_apretar_tecla_mov.setUltimaVez(Time.time);

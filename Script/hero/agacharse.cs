@@ -4,12 +4,15 @@ public class agacharse : habilidad
 {    
     private float velY;
     private bool estaAgachado;
+    private habilidadVerOpciones ui;
 
 	void Start ()
     {
         anim = GetComponent<Animator>();
         estaAgachado = false;
         estado_anim = "agacharse";
+
+        ui = GameObject.Find("Canvas").gameObject.GetComponent<habilidadVerOpciones>();
 
         cd = new cooldown();
         cd.setCooldown(0.2f);
@@ -37,7 +40,7 @@ public class agacharse : habilidad
     {
         float velY = Input.GetAxis("Vertical");
 
-        if (velY < 0f && cd.tiempoCompletado() && !GetComponent<salto>().getEstaSaltando())
+        if (velY < 0f && cd.tiempoCompletado() && !GetComponent<salto>().getEstaSaltando() && !ui.getEstado())
             activar();
         else
             desactivar();
