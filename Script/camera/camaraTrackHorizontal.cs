@@ -5,7 +5,7 @@ using UnityEngine;
 public class camaraTrackHorizontal : MonoBehaviour
 {
     private GameObject hero;
-
+    public int valorY;
 	
 	void Start ()
     {
@@ -16,6 +16,6 @@ public class camaraTrackHorizontal : MonoBehaviour
 	void Update ()
     {
         float x = hero.transform.position.x;        
-        transform.position = new Vector3(x ,-1, -10);
+        transform.position = new Vector3(x , valorY, -10);
 	}
 }
