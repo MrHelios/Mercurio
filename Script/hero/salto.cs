@@ -36,6 +36,8 @@ public class salto : habilidad
     {
         if (Input.GetAxis("Fire3") > 0 && puedeSaltar && !GetComponent<agacharse>().getEstaAgachado())
         {
+            Vector2 v = GetComponent<Rigidbody2D>().velocity;
+            GetComponent<Rigidbody2D>().velocity = new Vector2(v.x, 0);
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 250));
             desactivar();            
         }
