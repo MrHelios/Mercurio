@@ -3,10 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class teletransportar : MonoBehaviour
 {
-    public GameObject ubicacion;
+    public GameObject ubicacion, escenario;
     public GameObject camara;
     public int scene;
-
+    
     private bool cambiarEscena;
 
     private void Start()
@@ -33,10 +33,13 @@ public class teletransportar : MonoBehaviour
         {
             if (ubicacion.transform.parent.name != "escenario" && !ubicacion.transform.parent.gameObject.activeSelf)
             {
+                escenario.SetActive(false);
                 ubicacion.transform.parent.gameObject.SetActive(true);
             }
             else if (ubicacion.transform.parent.name == "escenario")
             {
+                Debug.Log(escenario);
+                escenario.SetActive(true);
                 if (GameObject.Find("esc_secret_1") != null)
                     GameObject.Find("esc_secret_1").SetActive(false);
                 if (GameObject.Find("esc_secret_2") != null)

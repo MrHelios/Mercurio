@@ -27,7 +27,7 @@ public class enemMovimiento : MonoBehaviour
 
     public Vector2 getVelocidad()
     {
-        return velocidad;
+        return GetComponent<Rigidbody2D>().velocity;
     }
 
     public void setMovimiento()
@@ -43,7 +43,7 @@ public class enemMovimiento : MonoBehaviour
             setAnimMovimiento(true);
         }
         else
-        {            
+        {
             transform.localScale = new Vector3(0.85f, 0.85f, 1);
 
             velocidad = new Vector2(-2, 0);
@@ -51,7 +51,7 @@ public class enemMovimiento : MonoBehaviour
 
             GetComponent<Rigidbody2D>().velocity = velocidad;
             setAnimMovimiento(true);
-        }
+        }        
     }
 
     public void setAnimMovimiento(bool e)

@@ -16,7 +16,7 @@ public class irLocacion : MonoBehaviour
 	
 	void FixedUpdate ()
     {
-        if (ia_mov.getMirada().Equals("derecha"))
+        if (ia_mov.getMirada().Equals("derecha") && ia_mov.getVelocidad().SqrMagnitude() != 0)
         {
             float valor = Vector3.SqrMagnitude(transform.position - puntos[0].transform.position);
             if (cercania > valor)
@@ -24,11 +24,15 @@ public class irLocacion : MonoBehaviour
                 ia_mov.setMirada("izquierda");
             }
         }
-        else
+        else if(ia_mov.getVelocidad().SqrMagnitude() != 0)
         {
             float valor = Vector3.SqrMagnitude(transform.position - puntos[1].transform.position);
             if (cercania > valor)
                 ia_mov.setMirada("derecha");
+        }
+        else
+        {
+            ia_mov.setMovimiento();
         }
     }
 }

@@ -8,8 +8,11 @@ public class hero : MonoBehaviour
     private cooldown invulnerabilidad_por_golpe;
     private controladorVidaUI ui_vida;
 
+    public GameObject escenario;
+
     private void Awake()
     {
+        escenario.SetActive(true);
         transform.position = GameObject.Find("escenario/respawn").transform.position;
     }
 
