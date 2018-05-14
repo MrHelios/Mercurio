@@ -7,8 +7,9 @@ public class heroColision : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            collision.gameObject.GetComponent<hero>().pierdeVida();            
-        }
+            collision.gameObject.GetComponent<hero>().pierdeVida();
+            
+        }        
     }
 
 }

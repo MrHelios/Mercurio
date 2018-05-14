@@ -19,14 +19,14 @@ public class salto : habilidad
     }
 
     public override void activar()
-    {
+    {        
         puedeSaltar = true;
         estaSaltando = false;
         anim.SetBool(estado_anim, false);
     }
 
     public override void desactivar()
-    {
+    {        
         puedeSaltar = false;
         estaSaltando = true;
         anim.SetBool(estado_anim, true);
