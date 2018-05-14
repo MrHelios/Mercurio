@@ -8,9 +8,12 @@ public class municionContraEnemigo : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.tag.Equals("Enemy"))
-        {
-            desarmar();
-            collision.gameObject.GetComponent<enemigo>().pierdeVida();
+        {            
+            if(collision.transform.GetChild(0).gameObject.GetComponent<Renderer>().isVisible)
+            {
+                desarmar();
+                collision.gameObject.GetComponent<enemigo>().pierdeVida();
+            }
         }
         else if(collision.transform.name.Equals("piso"))
         {
