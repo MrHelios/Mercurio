@@ -12,7 +12,7 @@ public class reiniciarEscena : MonoBehaviour
         cd.setCooldown(2f);
         cd.setUltimaVez(Time.time);
 
-        scene = 1;
+        scene = SceneManager.GetActiveScene().buildIndex;
 	}
 
     public void setEscena(int i)
