@@ -1,9 +1,21 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class teletransportar : MonoBehaviour
 {
     public GameObject ubicacion;
     public GameObject camara;
+    public int scene;
+
+    private bool cambiarEscena;
+
+    private void Start()
+    {
+        if (scene == 0)
+            cambiarEscena = false;
+        else
+            cambiarEscena = true;
+    }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -16,20 +28,27 @@ public class teletransportar : MonoBehaviour
     }
 
     private void cambiarMundo(Collider2D collision)
-    {        
-        if (ubicacion.transform.parent.name != "escenario" && !ubicacion.transform.parent.gameObject.activeSelf)
+    {
+        if(!cambiarEscena)
         {
-            ubicacion.transform.parent.gameObject.SetActive(true);
-        }
-        else if(ubicacion.transform.parent.name == "escenario")
-        {            
-            if (GameObject.Find("esc_secret_1") != null)
-                GameObject.Find("esc_secret_1").SetActive(false);
-            if (GameObject.Find("esc_secret_2") != null)
-                GameObject.Find("esc_secret_2").SetActive(false);
-        }
+            if (ubicacion.transform.parent.name != "escenario" && !ubicacion.transform.parent.gameObject.activeSelf)
+            {
+                ubicacion.transform.parent.gameObject.SetActive(true);
+            }
+            else if (ubicacion.transform.parent.name == "escenario")
+            {
+                if (GameObject.Find("esc_secret_1") != null)
+                    GameObject.Find("esc_secret_1").SetActive(false);
+                if (GameObject.Find("esc_secret_2") != null)
+                    GameObject.Find("esc_secret_2").SetActive(false);
+            }
 
-        collision.transform.position = ubicacion.transform.position;
+            collision.transform.position = ubicacion.transform.position;
+        }
+        else
+        {
+            SceneManager.LoadScene(scene);
+        }
     }
 
     private void cambiarCamaras()
@@ -39,6 +58,5 @@ public class teletransportar : MonoBehaviour
             if(camara != go.transform.GetChild(i).gameObject)
                 go.transform.GetChild(i).gameObject.SetActive(false);
     }
-
 
 }
