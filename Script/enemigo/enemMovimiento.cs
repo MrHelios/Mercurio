@@ -25,6 +25,11 @@ public class enemMovimiento : MonoBehaviour
         return mirada;
     }
 
+    public Vector2 getVelocidad()
+    {
+        return velocidad;
+    }
+
     public void setMovimiento()
     {
         if(mirada.Equals("derecha"))
