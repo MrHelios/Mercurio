@@ -20,10 +20,22 @@ public class teletransportar : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         if(collision.tag == "Player")
+        {            
+            GetComponent<SpriteRenderer>().enabled = true;
+            if(Input.GetAxis("Fire1") > 0)
+            {
+                camara.SetActive(true);
+                cambiarCamaras();
+                cambiarMundo(collision);
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
         {
-            camara.SetActive(true);
-            cambiarCamaras();
-            cambiarMundo(collision);
+            GetComponent<SpriteRenderer>().enabled = false;
         }
     }
 
