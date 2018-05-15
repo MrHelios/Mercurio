@@ -8,31 +8,62 @@ public class hero : MonoBehaviour
     private cooldown invulnerabilidad_por_golpe;
     private controladorVidaUI ui_vida;
 
-    public GameObject escenario;
+    private GameObject escenario;
 
     private void Awake()
     {
-        escenario.SetActive(true);
-        transform.position = GameObject.Find("escenario/respawn").transform.position;
+        ubicarHeroe();
+
+        vida_max = 4;
+        gameObject.tag = "Player";
+        vidaHero = new vida(vida_max);        
+    }
+
+    private void ubicarHeroe()
+    {
+        escenario = GameObject.Find("escenario");
+        if (escenario != null)
+        {
+            escenario.SetActive(true);
+            GameObject respawn = GameObject.Find("escenario/respawn");
+            if (respawn != null)
+                transform.position = respawn.transform.position;
+            else
+                transform.position = escenario.transform.position;
+        }
+        else
+        {
+            transform.position = Vector3.zero;
+        }
+    }
+
+    private void revisarCanvas()
+    {
+        if (GameObject.Find("Canvas") != null)
+        {
+            ui_vida = GameObject.Find("Canvas").gameObject.GetComponent<controladorVidaUI>();
+            armarVidaUI();
+        }
     }
 
     void Start()
     {
-        vida_max = 4;
-        gameObject.tag = "Player";
-        vidaHero = new vida(vida_max);       
+        revisarCanvas();
 
         invulnerabilidad_por_golpe = new cooldown();
         invulnerabilidad_por_golpe.setCooldown(2f);
-        invulnerabilidad_por_golpe.setUltimaVez(-99f);
-
-        ui_vida = GameObject.Find("Canvas").gameObject.GetComponent<controladorVidaUI>();
-        armarVidaUI();
+        invulnerabilidad_por_golpe.setUltimaVez(-99f);        
     }
 
     private void armarVidaUI()
     {
         ui_vida.armar(vida_max);
+    }
+
+    private void reiniciarEscenaUI()
+    {
+        if(GameObject.Find("Canvas") != null)
+            GameObject.Find("Canvas").gameObject.GetComponent<reiniciarEscena>().enabled = true;
     }
 
     private void efectosMuerte()
@@ -45,8 +76,8 @@ public class hero : MonoBehaviour
         for (int i = 0; a.Length > i; i++)
             a[i].enabled = false;
 
-        GetComponent<mov>().animacionMuerte();
-        GameObject.Find("Canvas").gameObject.GetComponent<reiniciarEscena>().enabled = true;
+        GetComponent<mov2>().animacionMuerte();
+        reiniciarEscenaUI();
     }
 
     public vida getVida()
