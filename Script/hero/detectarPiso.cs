@@ -1,20 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class detectarPiso : MonoBehaviour
-{
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        
-    }
+{    
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.transform.name.Equals("piso"))
         {
-            transform.parent.GetComponent<salto>().activar();
+            if (transform.parent.GetComponent<salto>() != null)
+                transform.parent.GetComponent<salto>().activar();
+            else
+                Debug.Log("No esta la componente salto");
         }
     }
 

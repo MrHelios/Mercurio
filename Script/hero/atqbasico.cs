@@ -17,25 +17,39 @@ public class atqbasico : atqDistancia
         hab_ejec = new cooldown();
         hab_ejec.setUltimaVez(-99f);
         hab_ejec.setCooldown(1f);
-    }   
+
+        seleccionarProyectil();
+    }
+
+    private void seleccionarProyectil()
+    {
+        GameObject proy = GameObject.Find("hero/proyectiles/disp_basico");
+        if (proy != null)
+            disp = proy;
+        else
+            Debug.Log("No ha sido seleccionado el proyectil para atqbasico.");
+    }
 
     public override void efecto()
     {
-        GameObject nuevo = Instantiate(disp);        
-        nuevo.transform.position = disp.transform.position;
-        nuevo.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
-        nuevo.AddComponent<Rigidbody2D>();
-        nuevo.GetComponent<Rigidbody2D>().gravityScale = 0;
-        nuevo.GetComponent<Collider2D>().enabled = true;
-        nuevo.GetComponent<destruir>().enabled = true;
+        if(disp != null)
+        {
+            GameObject nuevo = Instantiate(disp);
+            nuevo.transform.position = disp.transform.position;
+            nuevo.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+            nuevo.AddComponent<Rigidbody2D>();
+            nuevo.GetComponent<Rigidbody2D>().gravityScale = 0;
+            nuevo.GetComponent<Collider2D>().enabled = true;
+            nuevo.GetComponent<destruir>().enabled = true;
 
-        string m = GetComponent<mov>().getMirada();
-        if(m.Equals("derecha"))
-            nuevo.GetComponent<Rigidbody2D>().velocity = new Vector2(velocidad, 0);
-        else
-            nuevo.GetComponent<Rigidbody2D>().velocity = new Vector2(-velocidad, 0);
+            string m = GetComponent<mov2>().getMirada();
+            if (m.Equals("derecha"))
+                nuevo.GetComponent<Rigidbody2D>().velocity = new Vector2(velocidad, 0);
+            else
+                nuevo.GetComponent<Rigidbody2D>().velocity = new Vector2(-velocidad, 0);
 
-        desactivar();
+            desactivar();
+        }        
     }
 
     private void FixedUpdate()

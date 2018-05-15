@@ -4,8 +4,7 @@ public class movimiento : habilidad
 {
     private float vel;
     private string mirada;
-    private cooldown sin_apretar_tecla_mov;
-    private habilidadVerOpciones ui;
+    private cooldown sin_apretar_tecla_mov;    
 
     void Awake()
     {
@@ -20,11 +19,16 @@ public class movimiento : habilidad
         estado_anim = "movimiento";
         vel = 4f;
 
-        ui = GameObject.Find("Canvas").gameObject.GetComponent<habilidadVerOpciones>();
-
         sin_apretar_tecla_mov = new cooldown();
         sin_apretar_tecla_mov.setUltimaVez(0);
         sin_apretar_tecla_mov.setCooldown(0.1f);
+    }
+
+    private bool chequearSiEstaAgachado()
+    {
+        if (GetComponent<mov2>() == null)
+            return false;
+        return !GetComponent<mov2>().getEstaAgachado();
     }
 
     public override void activar()
@@ -37,12 +41,17 @@ public class movimiento : habilidad
         anim.SetBool(estado_anim, false);
     }
 
+    public string getMirada()
+    {
+        return mirada;
+    }
+
     protected override void efecto()
     {
         float velX = Input.GetAxis("Horizontal");
         Vector2 v = GetComponent<Rigidbody2D>().velocity;
 
-        if (Mathf.Abs(velX) > 0.1f && !anim.GetBool("agacharse") && cd.tiempoCompletado() && !ui.getEstado())
+        if (Mathf.Abs(velX) > 0.1f && chequearSiEstaAgachado() && cd.tiempoCompletado())
         {
             cd.setCooldown(0.2f);
             sin_apretar_tecla_mov.setUltimaVez(Time.time);
@@ -50,12 +59,12 @@ public class movimiento : habilidad
 
             if (velX > 0)
             {
-                GetComponent<mov>().setMirada("derecha");
+                mirada = "derecha";                
                 GetComponent<Transform>().localScale = new Vector3(1, 1, 1);
             }
             else
             {
-                GetComponent<mov>().setMirada("izquierda");
+                mirada = "izquierda";                
                 GetComponent<Transform>().localScale = new Vector3(-1, 1, 1);
             }
             activar();

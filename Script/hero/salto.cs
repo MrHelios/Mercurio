@@ -13,6 +13,13 @@ public class salto : habilidad
         activar();
 	}
 
+    private bool chequearSiEstaAgachado()
+    {
+        if (GetComponent<mov2>() == null)
+            return false;
+        return GetComponent<mov2>().getEstaAgachado();
+    }
+
     public bool getEstaSaltando()
     {
         return estaSaltando;
@@ -34,7 +41,7 @@ public class salto : habilidad
 
     protected override void efecto()
     {
-        if (Input.GetAxis("Fire3") > 0 && puedeSaltar && !GetComponent<agacharse>().getEstaAgachado())
+        if (Input.GetAxis("Fire3") > 0 && puedeSaltar && !chequearSiEstaAgachado())
         {
             Vector2 v = GetComponent<Rigidbody2D>().velocity;
             GetComponent<Rigidbody2D>().velocity = new Vector2(v.x, 0);
