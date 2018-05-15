@@ -9,6 +9,11 @@ public class enemigo : MonoBehaviour
         gameObject.tag = "Enemy";
         vidaEnemigo = new vida(1);
 	}
+
+    public bool estaVivo()
+    {
+        return vidaEnemigo.getVidaAct() > 0;
+    }
 	
     public vida getVida()
     {
