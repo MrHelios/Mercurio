@@ -1,43 +1,77 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class movRepetitivo : MonoBehaviour
 {
     public Transform[] posicion;
     private string haciaDonde;
     private float error;
-    private int vel;    
+    private int vel;
+
+    private bool movimientoY;
 
     void Start ()
     {
         vel = 3;
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        haciaDonde = "ida";        
+        haciaDonde = "ida";
         error = 0.1f;
+
+        calcularQueTipoMovimiento();
 	}
+
+    private void calcularQueTipoMovimiento()
+    {        
+        if (Mathf.Abs(posicion[0].transform.position.y - posicion[1].transform.position.y) > error)
+            movimientoY = true;
+        else
+            movimientoY = false;
+    }
 
     private void direccion()
     {
-        if (haciaDonde == "ida")
+        if(movimientoY)
         {
-            if (posicion[0].transform.position.y < posicion[1].transform.position.y)
-                movimiento(vel);
+            if (haciaDonde == "ida")
+            {
+                if (posicion[0].transform.position.y < posicion[1].transform.position.y)
+                    movimiento(vel);
+                else
+                    movimiento(-vel);
+            }
             else
-                movimiento(-vel);
+            {
+                if (posicion[1].transform.position.y > posicion[0].transform.position.y)
+                    movimiento(-vel);
+                else
+                    movimiento(vel);
+            }
         }
         else
         {
-            if (posicion[1].transform.position.y > posicion[0].transform.position.y)
-                movimiento(-vel);
+            if (haciaDonde == "ida")
+            {
+                if (posicion[0].transform.position.x < posicion[1].transform.position.x)
+                    movimiento(vel);
+                else
+                    movimiento(-vel);
+            }
             else
-                movimiento(vel);
+            {
+                if (posicion[1].transform.position.x > posicion[0].transform.position.x)
+                    movimiento(-vel);
+                else
+                    movimiento(vel);
+            }
         }
+        
     }
 
     private void movimiento(int v)
     {
-        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, v);
+        if(movimientoY)
+            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, v);
+        else
+            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(v, 0);
     }
 
     public Vector2 getVelocidad()
