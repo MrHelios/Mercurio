@@ -43,7 +43,7 @@ public class atqbasico : atqDistancia
             nuevo.GetComponent<destruir>().enabled = true;
 
             string m = GetComponent<mov2>().getMirada();
-            if (m.Equals("derecha"))
+            if (m  != null && m.Equals("derecha"))
                 nuevo.GetComponent<Rigidbody2D>().velocity = new Vector2(velocidad, 0);
             else
                 nuevo.GetComponent<Rigidbody2D>().velocity = new Vector2(-velocidad, 0);

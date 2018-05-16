@@ -16,6 +16,7 @@ public class movimiento : habilidad
     void Start ()
     {
         anim = GetComponent<Animator>();
+        mirada = "derecha";
         estado_anim = "movimiento";
         vel = 4f;
 
