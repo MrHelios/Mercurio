@@ -6,6 +6,7 @@ public class teletransportar : MonoBehaviour
     public GameObject ubicacion, escenario;
     public GameObject camara;
     public int scene;
+    public bool sinClick;
     
     private bool cambiarEscena;
 
@@ -22,7 +23,13 @@ public class teletransportar : MonoBehaviour
         if(collision.tag == "Player")
         {            
             GetComponent<SpriteRenderer>().enabled = true;
-            if(Input.GetAxis("Fire1") > 0)
+            if(sinClick)
+            {
+                camara.SetActive(true);
+                cambiarCamaras();
+                cambiarMundo(collision);
+            }
+            else if(Input.GetAxis("Fire1") > 0)
             {
                 camara.SetActive(true);
                 cambiarCamaras();
