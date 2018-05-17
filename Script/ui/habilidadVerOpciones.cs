@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class habilidadVerOpciones : MonoBehaviour
 {
@@ -12,10 +11,28 @@ public class habilidadVerOpciones : MonoBehaviour
     {
         config = GameObject.Find("Canvas/Opciones").transform.GetChild(0).gameObject;
         estado = false;
+
         cd = new cooldown();
         cd.setUltimaVez(-99f);
-        cd.setCooldown(0.25f);        
+        cd.setCooldown(0.25f);
+
+        guardarPartida();
 	}
+
+    private void guardarPartida()
+    {
+        GameObject config = GameObject.Find("Config");
+        if (config != null)
+        {
+            string nombre = config.GetComponent<conservarGameObject>().getFile();
+            int escena_actual = SceneManager.GetActiveScene().buildIndex;
+            
+            archivoPartidas ap = new archivoPartidas();
+            ap.guardar(nombre, escena_actual);
+        }
+        else
+            Debug.Log("No hay gameobject Config");
+    }
 
     public bool getEstado()
     {
