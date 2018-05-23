@@ -8,17 +8,24 @@ public class municionContraEnemigo : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.tag.Equals("Enemy"))
-        {            
-            if(collision.transform.GetChild(0).gameObject.GetComponent<Renderer>().isVisible)
+        {
+            bool cortar = false;
+            for (int i = 0; i < collision.transform.childCount && !cortar; i++)
             {
-                desarmar();
-                collision.gameObject.GetComponent<enemigo>().pierdeVida();
+                GameObject go = collision.transform.GetChild(i).gameObject;
+                if (go.GetComponent<Renderer>() != null && go.GetComponent<Renderer>().isVisible)
+                {
+                    desarmar();
+                    collision.gameObject.GetComponent<enemigo>().pierdeVida();
+                    cortar = true;
+                }
             }
         }
         else if(collision.transform.name.Equals("piso"))
         {
             desarmar();
         }
+        
     }
 
     private void desarmar()
