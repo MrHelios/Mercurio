@@ -4,10 +4,17 @@ public class enemigo : MonoBehaviour
 {
     private vida vidaEnemigo;
 
-	void Start ()
+    void Awake()
     {
         gameObject.tag = "Enemy";
         vidaEnemigo = new vida(1);
+        if(gameObject.transform.parent.GetComponent<crearEnemigo>() != null)
+            gameObject.SetActive(false);
+    }
+
+    void Start ()
+    {
+        
 	}
 
     public bool estaVivo()
