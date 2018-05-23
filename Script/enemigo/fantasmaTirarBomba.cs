@@ -1,35 +1,51 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class fantasmaTirarBomba : MonoBehaviour
+public class fantasmaTirarBomba : habilidad
 {
-    public GameObject bomba;    
-    private cooldown cd;
+    public GameObject bomba;
+    private bool activo;
 
-	void Start ()
+    void Awake()
+    {
+        activo = true;
+    }
+
+    void Start ()
     {
         cd = new cooldown();
         cd.setCooldown(2f);
-        cd.setUltimaVez(0f);
+        cd.setUltimaVez(-99f);
 	}
 
-    private void efecto()
+    protected override void efecto()
     {
         GameObject nuevo = Instantiate(bomba);
 
         nuevo.transform.position = transform.position;
         nuevo.SetActive(true);
-        nuevo.GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<enemMovimiento>().getVelocidad().x, 0);
+        if (GetComponent<enemMovimiento>() != null)
+            nuevo.GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<enemMovimiento>().getVelocidad().x, 0);
+        else
+            nuevo.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         nuevo.GetComponent<Rigidbody2D>().gravityScale = 2;
         nuevo.GetComponent<destruir>().enabled = true;
 
         cd.setUltimaVez(Time.time);
     }
-	
-	void FixedUpdate ()
+
+    public override void activar()
     {
-        if (cd.tiempoCompletado())
+        activo = true;
+    }
+
+    public override void desactivar()
+    {
+        activo = false;
+    }
+
+    void FixedUpdate ()
+    {
+        if (cd.tiempoCompletado() && activo)
             efecto();
 	}
 }
