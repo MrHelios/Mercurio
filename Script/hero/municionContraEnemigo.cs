@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class municionContraEnemigo : MonoBehaviour
 {
+    private bool utilizado;
+
+    private void Start()
+    {
+        utilizado = false;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.tag.Equals("Enemy"))
+        if (collision.transform.tag.Equals("Enemy") && !utilizado)
         {
             bool cortar = false;
             for (int i = 0; i < collision.transform.childCount && !cortar; i++)
@@ -30,6 +36,8 @@ public class municionContraEnemigo : MonoBehaviour
 
     private void desarmar()
     {
+        utilizado = true;
+
         gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().enabled = false;
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
