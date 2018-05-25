@@ -8,6 +8,7 @@ public class JF11a : jefeFinalSecuencia
     private int cooldown;
 
     public GameObject[] enem;
+    public GameObject jefe;
 
     void Start()
     {
@@ -41,7 +42,7 @@ public class JF11a : jefeFinalSecuencia
     {
         activar = false;
         Destroy(gameObject);
-        GameObject.Find("Camaras/Camera").GetComponent<camaraTrackHorizontal>().enabled = true;
+        jefe.SetActive(true);
     }
 
     public void efecto()
