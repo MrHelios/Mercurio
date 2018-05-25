@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class movUnidireccional : habilidad
 {
@@ -25,28 +24,48 @@ public class movUnidireccional : habilidad
     }
 
     protected override void efecto()
-    {
+    {        
         anim.SetBool(estado_anim, true);
-        if(transform.position.x < punto.transform.position.x)
+        if(punto != null)
         {
-            Vector3 s = transform.localScale;
-            transform.localScale = new Vector3((-1) * s.x, s.y, s.z);
-            GetComponent<Rigidbody2D>().velocity = new Vector2(velx,0);
+            if (transform.position.x < punto.transform.position.x)
+            {
+                Vector3 s = transform.localScale;
+                transform.localScale = new Vector3((-1) * s.x, s.y, s.z);
+                GetComponent<Rigidbody2D>().velocity = new Vector2(velx, 0);
+            }
+            else
+            {
+                GetComponent<Rigidbody2D>().velocity = new Vector2(-velx, 0);
+            }
         }
         else
-        {            
-            GetComponent<Rigidbody2D>().velocity = new Vector2(-velx, 0);
+        {
+            GameObject hero = GameObject.Find("hero");
+            if (transform.position.x < hero.transform.position.x)
+            {
+                Vector3 s = transform.localScale;
+                transform.localScale = new Vector3((-1) * s.x, s.y, s.z);
+                GetComponent<Rigidbody2D>().velocity = new Vector2(velx, 0);
+            }
+            else
+            {
+                GetComponent<Rigidbody2D>().velocity = new Vector2(-velx, 0);
+            }
         }
     }
 
     public override void activar()
     {
         activado = true;
+        efecto();
     }
 
     public override void desactivar()
     {
         activado = false;
+        GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+        GetComponent<BoxCollider2D>().enabled = false;
     }
     
 }
