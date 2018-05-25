@@ -2,7 +2,7 @@
 
 public class enemigo : MonoBehaviour
 {
-    private vida vidaEnemigo;
+    protected vida vidaEnemigo;
 
     void Awake()
     {
@@ -15,7 +15,7 @@ public class enemigo : MonoBehaviour
     void Start ()
     {
         
-	}
+	}    
 
     public bool estaVivo()
     {
