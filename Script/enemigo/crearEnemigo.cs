@@ -2,28 +2,39 @@
 
 public class crearEnemigo : MonoBehaviour
 {
-    private bool crear;    
+    private bool crear;
+    private cooldown cd;
 
     private void Start()
     {
         crear = true;
+
+        cd = new cooldown();
+        cd.setCooldown(2f);
+        cd.setUltimaVez(-99f);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.tag == "Player" && crear)
-        {            
+        if(collision.tag == "Player" && cd.tiempoCompletado())
+        {
             if (GetComponent<destruir>() != null)
             {
                 GetComponent<destruir>().enabled = true;
-                for(int i=0; i<transform.childCount; i++)
-                {
-                    transform.GetChild(i).gameObject.SetActive(true);
-                }
+                activar();
             }
             else
-                Debug.Log(transform.name + ": No tiene la componente destruir.");
-            crear = false;
+                activar();
+            cd.setUltimaVez(Time.time);
+        }
+    }
+
+    private void activar()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {            
+            GameObject nuevo = Instantiate(transform.GetChild(i).gameObject);
+            nuevo.SetActive(true);
         }
     }
 
