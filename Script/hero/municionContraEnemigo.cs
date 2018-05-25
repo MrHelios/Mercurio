@@ -20,9 +20,12 @@ public class municionContraEnemigo : MonoBehaviour
             {
                 GameObject go = collision.transform.GetChild(i).gameObject;
                 if (go.GetComponent<Renderer>() != null && go.GetComponent<Renderer>().isVisible)
-                {
+                {                    
                     desarmar();
-                    collision.gameObject.GetComponent<enemigo>().pierdeVida();
+                    if(collision.gameObject.GetComponent<jefe>() != null)
+                        collision.gameObject.GetComponent<jefe>().pierdeVida();
+                    else
+                        collision.gameObject.GetComponent<enemigo>().pierdeVida();
                     cortar = true;
                 }
             }
