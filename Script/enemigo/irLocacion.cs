@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class irLocacion : MonoBehaviour
 {
@@ -18,7 +16,7 @@ public class irLocacion : MonoBehaviour
     {
         if (ia_mov.getMirada().Equals("derecha") && ia_mov.getVelocidad().SqrMagnitude() != 0)
         {
-            float valor = Vector3.SqrMagnitude(transform.position - puntos[0].transform.position);
+            float valor = Mathf.Abs(transform.position.x - puntos[0].transform.position.x);
             if (cercania > valor)
             {
                 ia_mov.setMirada("izquierda");
@@ -26,7 +24,7 @@ public class irLocacion : MonoBehaviour
         }
         else if(ia_mov.getVelocidad().SqrMagnitude() != 0)
         {
-            float valor = Vector3.SqrMagnitude(transform.position - puntos[1].transform.position);
+            float valor = Mathf.Abs(transform.position.x - puntos[1].transform.position.x);
             if (cercania > valor)
                 ia_mov.setMirada("derecha");
         }
