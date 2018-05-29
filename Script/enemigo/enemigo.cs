@@ -15,7 +15,38 @@ public class enemigo : MonoBehaviour
     void Start ()
     {
         
-	}    
+	}
+
+    private void aumentarCargaArcana(Vector3 v)
+    {
+        if (GameObject.Find("hero").GetComponent<municionArcana>() != null)
+            GameObject.Find("hero").GetComponent<municionArcana>().crearEfecto(v);
+        else
+            Debug.Log("No sé coloco la municionArcana en el hero.");
+    }
+
+    private void desactivarHabilidades()
+    {        
+        aumentarCargaArcana(gameObject.transform.position);
+
+        transform.parent.GetComponent<destruir>().enabled = true;
+
+        habilidad[] h = GetComponents<habilidad>();
+        for (int i = 0; i < h.Length; i++)
+            h[i].enabled = false;
+
+        if (GetComponent<enemMovimiento>() != null)
+        {
+            GetComponent<enemMovimiento>().enabled = false;
+            GetComponent<irLocacion>().enabled = false;
+        }
+
+        if (GetComponent<Rigidbody2D>() != null)
+            Destroy(GetComponent<Rigidbody2D>());
+
+        if (GetComponent<Collider2D>() != null)
+            GetComponent<Collider2D>().enabled = false;
+    }
 
     public bool estaVivo()
     {
@@ -32,7 +63,10 @@ public class enemigo : MonoBehaviour
         vidaEnemigo.pierdeVida();
         if(vidaEnemigo.estaMuerto())
         {
-            gameObject.SetActive(false);
+            muerte();
+            GetComponent<Animator>().SetTrigger("muerte");
+
+            desactivarHabilidades();
         }
     }
 
