@@ -7,6 +7,7 @@ public class hero : MonoBehaviour
     private vida vidaHero;
     private cooldown invulnerabilidad_por_golpe;
     private controladorVidaUI ui_vida;
+    private bool invulnerable;
 
     private GameObject escenario;
 
@@ -16,7 +17,9 @@ public class hero : MonoBehaviour
 
         vida_max = 4;
         gameObject.tag = "Player";
-        vidaHero = new vida(vida_max);        
+        vidaHero = new vida(vida_max);
+
+        invulnerable = false;
     }
 
     private void ubicarHeroe()
@@ -68,6 +71,8 @@ public class hero : MonoBehaviour
 
     private void efectosMuerte()
     {
+        GetComponent<mov2>().enabled = false;
+
         habilidad[] h = GetComponents<habilidad>();
         for (int i = 0; h.Length > i; i++)
             h[i].enabled = false;
@@ -75,6 +80,8 @@ public class hero : MonoBehaviour
         atqDistancia[] a = GetComponents<atqDistancia>();
         for (int i = 0; a.Length > i; i++)
             a[i].enabled = false;
+
+        Destroy(GetComponent<Rigidbody2D>());
 
         GetComponent<mov2>().animacionMuerte();
         reiniciarEscenaUI();
@@ -87,7 +94,7 @@ public class hero : MonoBehaviour
 
     public void pierdeVida()
     {
-        if(invulnerabilidad_por_golpe.tiempoCompletado())
+        if(invulnerabilidad_por_golpe.tiempoCompletado() && !invulnerable)
         {
             vidaHero.pierdeVida();
             if (vidaHero.estaMuerto())
@@ -97,6 +104,23 @@ public class hero : MonoBehaviour
             invulnerabilidad_por_golpe.setUltimaVez(Time.time);
             ui_vida.perderVida(vidaHero.getVidaAct());
         }
+        else if(invulnerable)
+        {
+            invulnerabilidad_por_golpe.setUltimaVez(Time.time);
+            desactivarInvulnerable();
+        }
+    }
+
+    public void activarInvulnerable()
+    {
+        invulnerable = true;
+        ui_vida.pintarCeleste();
+    }
+
+    public void desactivarInvulnerable()
+    {
+        invulnerable = false;
+        ui_vida.pintarRojo();
     }
 
     public void restaurar_vida_max()
