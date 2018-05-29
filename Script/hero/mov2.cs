@@ -2,16 +2,11 @@
 
 public class mov2 : MonoBehaviour
 {
-    private Animator anim;
-    private cooldown cd_movimiento;
+    private Animator anim;    
 
     void Start()
     {
-        anim = GetComponent<Animator>();
-        if (GetComponent<movimiento>() != null)
-            cd_movimiento = GetComponent<movimiento>().getCooldown();
-        else
-            cd_movimiento = null;
+        anim = GetComponent<Animator>();        
     }
 
     private bool estaAtaqueBasicoCDCompleto()
@@ -22,12 +17,12 @@ public class mov2 : MonoBehaviour
             return GetComponent<atqbasico>().getCooldown().tiempoCompletado();
     }
 
-    private bool dejoDeMoverse()
+    private bool estaAtaqueEnAltoCDCompleto()
     {
-        if (cd_movimiento == null)
-            return true;
+        if (GetComponent<atqenalto>() == null)
+            return false;
         else
-            return cd_movimiento.tiempoCompletado();
+            return GetComponent<atqenalto>().getCooldown().tiempoCompletado();
     }
 
     public string getMirada()
@@ -53,7 +48,7 @@ public class mov2 : MonoBehaviour
 
     public void animacionMuerte()
     {
-        
+        anim.SetTrigger("muerto");
     }
 
     void FixedUpdate()
@@ -62,20 +57,16 @@ public class mov2 : MonoBehaviour
 
         if (Input.GetAxis("Fire1") > 0)
         {
-            GetComponent<Rigidbody2D>().velocity = new Vector2(0, v.y);
-
-            if (Input.GetAxis("Fire1") > 0 && dejoDeMoverse()  && estaAtaqueBasicoCDCompleto())
+            if (Input.GetAxis("Fire1") > 0  && estaAtaqueBasicoCDCompleto())
             {
                 GetComponent<atqbasico>().activar();
                 GetComponent<atqbasico>().getCooldown().setUltimaVez(Time.time);
-
-                if(cd_movimiento != null)
-                {
-                    cd_movimiento.setCooldown(0.35f);
-                    cd_movimiento.setUltimaVez(Time.time);
-                }
             }
-
+        }
+        else if(Input.GetAxis("Fire5") > 0 && estaAtaqueEnAltoCDCompleto())
+        {
+            GetComponent<atqenalto>().activar();
+            GetComponent<atqenalto>().getCooldown().setUltimaVez(Time.time);
         }
 
     }
