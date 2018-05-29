@@ -36,13 +36,18 @@ public class JF11a : jefeFinalSecuencia
         empezo = true;
         tiempo = Time.time + 20f;
         GameObject.Find("Camaras/Camera").GetComponent<camaraTrackHorizontal>().enabled = false;
+        GameObject.Find("escenario/background/fondo").GetComponent<camaraTrackHorizontal>().enabled = false;
     }
 
     private void desactivarZona()
     {
         activar = false;
         Destroy(gameObject);
-        jefe.SetActive(true);
+        if(jefe != null)
+            jefe.SetActive(true);
+
+        GameObject.Find("Camaras/Camera").GetComponent<camaraTrackHorizontal>().enabled = true;
+        GameObject.Find("escenario/background/fondo").GetComponent<camaraTrackHorizontal>().enabled = true;
     }
 
     public void efecto()
