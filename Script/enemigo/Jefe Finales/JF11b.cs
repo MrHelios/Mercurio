@@ -16,7 +16,7 @@ public class JF11b : jefeFinalSecuencia
         cambiarPosicion();
 
         habilidades = new habilidad[2];
-        setHabilidad(0, GetComponent<fantasmaTirarBomba>());
+        setHabilidad(0, GetComponent<tirarBombaAlHero>());
         setHabilidad(1, GetComponent<invisibilidad>());
 
         getHabilidad(contar).activar();
