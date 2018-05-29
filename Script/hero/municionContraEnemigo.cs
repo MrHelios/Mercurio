@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class municionContraEnemigo : MonoBehaviour
 {
@@ -26,7 +24,7 @@ public class municionContraEnemigo : MonoBehaviour
                         collision.gameObject.GetComponent<jefe>().pierdeVida();
                     else
                         collision.gameObject.GetComponent<enemigo>().pierdeVida();
-                    cortar = true;
+                    cortar = true;                    
                 }
             }
         }
@@ -34,12 +32,11 @@ public class municionContraEnemigo : MonoBehaviour
         {
             desarmar();
         }
-        
     }
 
     private void desarmar()
     {
-        utilizado = true;
+        utilizado = true;        
 
         gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().enabled = false;
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -47,5 +44,7 @@ public class municionContraEnemigo : MonoBehaviour
         gameObject.GetComponent<Animator>().SetTrigger("exp");
         gameObject.GetComponent<destruir>().activar();
     }
+
+    
 
 }
