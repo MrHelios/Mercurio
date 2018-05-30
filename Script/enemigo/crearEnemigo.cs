@@ -34,7 +34,10 @@ public class crearEnemigo : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
         {            
             GameObject nuevo = Instantiate(transform.GetChild(i).gameObject);
-            nuevo.SetActive(true);
+            if (nuevo != null)
+                nuevo.SetActive(true);
+            else
+                Debug.Log("No se puede activar la nueva instancia " + nuevo.name);
         }
     }
 
