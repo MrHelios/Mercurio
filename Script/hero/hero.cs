@@ -111,6 +111,12 @@ public class hero : MonoBehaviour
         }
     }
 
+    public void ganaVida()
+    {
+        vidaHero.ganaVida();
+        ui_vida.ganarVida(vidaHero.getVidaAct() - 1);
+    }
+
     public void activarInvulnerable()
     {
         invulnerable = true;
