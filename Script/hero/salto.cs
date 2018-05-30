@@ -32,6 +32,11 @@ public class salto : habilidad
         anim.SetBool(estado_anim, false);
     }
 
+    public void desactivarPuedeSaltar()
+    {
+        puedeSaltar = false;
+    }
+
     public override void desactivar()
     {        
         puedeSaltar = false;

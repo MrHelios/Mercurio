@@ -14,4 +14,13 @@ public class detectarPiso : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.transform.name.Equals("piso"))
+        {
+            if (transform.parent.GetComponent<salto>() != null)
+                transform.parent.GetComponent<salto>().desactivarPuedeSaltar();
+        }
+    }
+
 }
