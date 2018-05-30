@@ -4,6 +4,7 @@ public class movimiento : habilidad
 {
     private float vel;
     private string mirada;
+    private bool estado;
     private cooldown sin_apretar_tecla_mov;    
 
     void Awake()
@@ -23,6 +24,8 @@ public class movimiento : habilidad
         sin_apretar_tecla_mov = new cooldown();
         sin_apretar_tecla_mov.setUltimaVez(0);
         sin_apretar_tecla_mov.setCooldown(0.1f);
+
+        activar();
     }
 
     private bool chequearSiEstaAgachado()
@@ -34,12 +37,12 @@ public class movimiento : habilidad
 
     public override void activar()
     {
-        anim.SetBool(estado_anim, true);
+        anim.SetBool(estado_anim, true);        
     }
 
     public override void desactivar()
     {
-        anim.SetBool(estado_anim, false);
+        anim.SetBool(estado_anim, false);        
     }
 
     public string getMirada()
@@ -79,7 +82,7 @@ public class movimiento : habilidad
     }
 
     void FixedUpdate ()
-    {
+    {       
         efecto();
     }
 }

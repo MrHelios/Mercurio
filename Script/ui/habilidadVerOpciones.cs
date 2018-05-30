@@ -4,11 +4,13 @@ using UnityEngine.SceneManagement;
 public class habilidadVerOpciones : MonoBehaviour
 {
     private GameObject config;
+    private GameObject hero;
     private bool estado;
     private cooldown cd;    
 	
 	void Start ()
     {
+        hero = GameObject.Find("hero");
         config = GameObject.Find("Canvas/Opciones").transform.GetChild(0).gameObject;
         estado = false;
 
@@ -41,9 +43,21 @@ public class habilidadVerOpciones : MonoBehaviour
 
     public void cambiarEstado()
     {
+        if(hero != null)
+        {
+            Vector2 v = hero.GetComponent<Rigidbody2D>().velocity;
+            hero.GetComponent<Rigidbody2D>().velocity = new Vector2(0, v.y);
+            hero.GetComponent<movimiento>().desactivar();
+
+            habilidad[] h = hero.GetComponents<habilidad>();
+            for (int i = 0; i < h.Length; i++)
+                h[i].enabled = estado;
+        }
+
         estado = !estado;
         config.SetActive(estado);
         cd.setUltimaVez(Time.time);
+
     }
 	
 	void FixedUpdate ()
