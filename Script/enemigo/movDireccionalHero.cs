@@ -30,12 +30,12 @@ public class movDireccionalHero : habilidad
         if (transform.position.x < hero.transform.position.x)
         {
             
-            transform.localScale = new Vector3(-2,2,1);
+            transform.localScale = new Vector3(-1,1,1);
             GetComponent<Rigidbody2D>().velocity = new Vector2(velx, 0);
         }
         else
         {
-            transform.localScale = new Vector3(2, 2, 1);
+            transform.localScale = new Vector3(1, 1, 1);
             GetComponent<Rigidbody2D>().velocity = new Vector2(-velx, 0);
         }
         cd.setUltimaVez(Time.time);
