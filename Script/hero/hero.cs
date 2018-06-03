@@ -81,7 +81,8 @@ public class hero : MonoBehaviour
         for (int i = 0; a.Length > i; i++)
             a[i].enabled = false;
 
-        Destroy(GetComponent<Rigidbody2D>());
+        Vector2 v = GetComponent<Rigidbody2D>().velocity;
+        GetComponent<Rigidbody2D>().velocity = new Vector2(0, v.y);
 
         GetComponent<mov2>().animacionMuerte();
         reiniciarEscenaUI();
