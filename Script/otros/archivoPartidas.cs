@@ -32,6 +32,11 @@ public class archivoPartidas
         else
             return 1;
     }
+
+    public void vaciarPartida(string nombre)
+    {
+        guardar(nombre, 1);
+    }
 }
 
 [Serializable]

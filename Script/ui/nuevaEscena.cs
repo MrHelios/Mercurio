@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class nuevaEscena : MonoBehaviour
 {
+    public string nombrePartida;
     public int scene;
 
     public void loadScene()
@@ -17,10 +18,16 @@ public class nuevaEscena : MonoBehaviour
         GameObject go = new GameObject();
         go.name = "Config";
         go.AddComponent<conservarGameObject>();
-        go.GetComponent<conservarGameObject>().setFile("/game1.sav");
+        go.GetComponent<conservarGameObject>().setFile(nombrePartida);
         string n = go.GetComponent<conservarGameObject>().getFile();
 
         SceneManager.LoadScene(ap.cargar(n));
+    }
+
+    public void reiniciarPartida()
+    {
+        archivoPartidas ap = new archivoPartidas();
+        ap.vaciarPartida(nombrePartida);
     }
 
 }
