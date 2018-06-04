@@ -27,6 +27,8 @@ public class buhoCrearVida : habilidad
             vida.SetActive(true);
             vida.AddComponent<Rigidbody2D>();
             transform.parent.gameObject.GetComponent<destruir>().enabled = true;
+            desactivar();
+            GetComponent<SpriteRenderer>().enabled = false;
         }
         else if(estado)
             Debug.Log("Error: No se eligio vida.");
