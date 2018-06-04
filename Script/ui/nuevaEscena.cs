@@ -3,8 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class nuevaEscena : MonoBehaviour
 {
-    public string nombrePartida;
+    private string nombrePartida;
     public int scene;
+
+    void Start()
+    {
+        nombrePartida = transform.parent.gameObject.name;    
+    }
 
     public void loadScene()
     {
