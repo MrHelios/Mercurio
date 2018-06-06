@@ -1,15 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class heroMuerteInstantanea : MonoBehaviour
 {
+    private GameObject hero;
+
+    private void Start()
+    {
+        hero = GameObject.Find("hero");
+    }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if(collision.tag.Equals("Player"))
         {
-            collision.gameObject.GetComponent<hero>().muerte();
+            hero.GetComponent<hero>().muerte();
         }
     }
 
