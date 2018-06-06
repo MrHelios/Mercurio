@@ -4,10 +4,19 @@ public class heroColision : MonoBehaviour
 {
     public jefe vidaJefe; 
     private bool activo;
+    private GameObject hero;
 
     void Start()
     {
-        activo = true;    
+        buscarHero();
+        activar();
+    }
+
+    private void buscarHero()
+    {
+        hero = GameObject.Find("hero");
+        if (hero == null)
+            Debug.Log("No hay hero.");
     }
 
     public void activar()
@@ -22,12 +31,12 @@ public class heroColision : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.tag == "Player" && activo)
+        if(collision.tag == "Player" && activo && hero != null)
         {
             if(vidaJefe != null && vidaJefe.estaVivo())
-                collision.gameObject.GetComponent<hero>().pierdeVida();
+                hero.GetComponent<hero>().pierdeVida();
             else if(vidaJefe == null)
-                collision.gameObject.GetComponent<hero>().pierdeVida();
+                hero.GetComponent<hero>().pierdeVida();
         }        
     }
 
