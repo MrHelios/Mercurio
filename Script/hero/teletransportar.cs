@@ -9,9 +9,12 @@ public class teletransportar : MonoBehaviour
     public bool sinClick;
     
     private bool cambiarEscena;
+    private GameObject hero;
 
     private void Start()
     {
+        hero = GameObject.Find("hero");
+
         if (scene == 0)
             cambiarEscena = false;
         else
@@ -62,7 +65,7 @@ public class teletransportar : MonoBehaviour
                     GameObject.Find("esc_secret_2").SetActive(false);
             }
 
-            collision.transform.position = ubicacion.transform.position;
+            hero.transform.position = ubicacion.transform.position;
         }
         else
         {
