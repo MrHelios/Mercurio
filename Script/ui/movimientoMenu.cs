@@ -14,9 +14,14 @@ public class movimientoMenu : MonoBehaviour
 
         amarillo();
 
-        cd = new cooldown();
-        cd.setCooldown(0.2f);
-        cd.setUltimaVez(-99f);
+        if(GameObject.Find("Canvas").GetComponent<cooldownGlobal>() != null)
+            cd = GameObject.Find("Canvas").GetComponent<cooldownGlobal>().cd;
+        else
+        {
+            cd = new cooldown();
+            cd.setCooldown(0.2f);
+            cd.setUltimaVez(-99f);
+        }
     }
 
     private void blanco()
