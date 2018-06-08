@@ -22,7 +22,7 @@ public class daVidaalHero : habilidad
     protected override void efecto()
     {
         GameObject.Find("hero").GetComponent<hero>().ganaVida();
-        GetComponent<SpriteRenderer>().enabled = false;
+        GameObject.Find(transform.name + "/imagen_vida/1").GetComponent<SpriteRenderer>().enabled = false;
         activado = false;
     }
 

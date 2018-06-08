@@ -2,12 +2,19 @@
 
 public class movRepetitivo : MonoBehaviour
 {
-    public Transform[] posicion;
+    private Transform[] posicion;
     private string haciaDonde;
     private float error;
     private int vel;
-
     private bool movimientoY;
+
+    private void Awake()
+    {
+        posicion = new Transform[2];
+
+        posicion[0] = GameObject.Find(transform.parent.name + "/puntos/a").transform;
+        posicion[1] = GameObject.Find(transform.parent.name + "/puntos/b").transform;
+    }
 
     void Start ()
     {

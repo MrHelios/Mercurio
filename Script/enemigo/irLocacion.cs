@@ -2,11 +2,23 @@
 
 public class irLocacion : MonoBehaviour
 {
-    public GameObject[] puntos;
+    private GameObject[] puntos;
     private enemMovimiento ia_mov;
     private float cercania;
-	
-	void Start ()
+
+    void Awake()
+    {
+        puntos = new GameObject[2];
+        puntos[0] = GameObject.Find(transform.parent.name + "/puntos/a");
+        if (puntos[0] == null)
+            Debug.Log("No se encontro punto a para " + transform.parent.name);
+
+        puntos[1] = GameObject.Find(transform.parent.name + "/puntos/b");
+        if (puntos[1] == null)
+            Debug.Log("No se encontro punto b para " + transform.parent.name);
+    }
+
+    void Start ()
     {
         cercania = 0.25f;
         ia_mov = GetComponent<enemMovimiento>();

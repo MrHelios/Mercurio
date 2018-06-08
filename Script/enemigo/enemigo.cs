@@ -3,19 +3,28 @@
 public class enemigo : MonoBehaviour
 {
     protected vida vidaEnemigo;
+    private GameObject posicion_inicial;
 
     void Awake()
     {
         gameObject.tag = "Enemy";
+
         vidaEnemigo = new vida(1);
+
         if(gameObject.transform.parent.GetComponent<crearEnemigo>() != null)
             gameObject.SetActive(false);
+
+        posicion_inicial = GameObject.Find(transform.parent.name +"/puntos/inicio");
+        if (posicion_inicial != null)
+            transform.position = posicion_inicial.transform.position;
+        else
+            Debug.Log(transform.parent.name + " no tiene posicion inicial.");
     }
 
     void Start ()
     {
         
-	}
+    }
 
     private void aumentarCargaArcana(Vector3 v)
     {

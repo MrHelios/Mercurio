@@ -2,7 +2,8 @@
 
 public class movDiagonal : habilidad
 {
-    public GameObject punto;
+    private GameObject punto;
+
     private string direccion;
     private string altura;    
 
@@ -11,7 +12,14 @@ public class movDiagonal : habilidad
 
     private bool activado;
 
-	void Start ()
+    private void Awake()
+    {
+        punto = GameObject.Find(transform.parent.name + "/puntos/a");
+        if (punto == null)
+            Debug.Log(transform.parent.name + " no tiene punto a.");
+    }
+
+    void Start ()
     {
         activado = true;
 

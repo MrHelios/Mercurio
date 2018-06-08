@@ -24,9 +24,10 @@ public class buhoCrearVida : habilidad
     {
         if (vida != null && estado)
         {
-            vida.SetActive(true);
+            vida.transform.position = transform.position;
+            vida.SetActive(true);            
             vida.AddComponent<Rigidbody2D>();
-            transform.parent.gameObject.GetComponent<destruir>().enabled = true;
+            GetComponent<enemigo>().muerte();
             desactivar();
             GetComponent<SpriteRenderer>().enabled = false;
         }

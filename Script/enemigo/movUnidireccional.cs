@@ -2,11 +2,18 @@
 
 public class movUnidireccional : habilidad
 {
-    public GameObject punto;
+    private GameObject punto;
     private bool activado;
     private int velx;
 
-	void Start ()
+    private void Awake()
+    {
+        punto = GameObject.Find(transform.parent.name + "/puntos/a");
+        if (punto == null)
+            Debug.Log("No se ha seleccionado hacia donde debe moverse " + transform.parent.name);
+    }
+
+    void Start ()
     {
         activado = true;
 

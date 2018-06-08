@@ -20,6 +20,7 @@ public class desaparicionColision : MonoBehaviour
         if (collision.name.Contains("disp_basico"))
         {
             desactivar();
+            GetComponent<jefe>().pierdeVida();
         }
     }
 

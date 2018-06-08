@@ -13,19 +13,13 @@ public class municionContraEnemigo : MonoBehaviour
     {
         if (collision.transform.tag.Equals("Enemy") && !utilizado)
         {
-            bool cortar = false;
-            for (int i = 0; i < collision.transform.childCount && !cortar; i++)
+            if(gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().isVisible)
             {
-                GameObject go = collision.transform.GetChild(i).gameObject;
-                if (go.GetComponent<Renderer>() != null && go.GetComponent<Renderer>().isVisible)
-                {                    
-                    desarmar();
-                    if(collision.gameObject.GetComponent<jefe>() != null)
-                        collision.gameObject.GetComponent<jefe>().pierdeVida();
-                    else
-                        collision.gameObject.GetComponent<enemigo>().pierdeVida();
-                    cortar = true;                    
-                }
+                desarmar();
+                if (collision.gameObject.GetComponent<jefe>() != null)
+                    collision.gameObject.GetComponent<jefe>().pierdeVida();
+                else
+                    collision.gameObject.GetComponent<enemigo>().pierdeVida();
             }
         }
         else if(collision.transform.name.Equals("piso"))
@@ -44,7 +38,5 @@ public class municionContraEnemigo : MonoBehaviour
         gameObject.GetComponent<Animator>().SetTrigger("exp");
         gameObject.GetComponent<destruir>().activar();
     }
-
-    
 
 }
